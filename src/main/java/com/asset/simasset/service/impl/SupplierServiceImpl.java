@@ -32,7 +32,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Supplier create(Supplier req) {
+    public Supplier create(SupplierDTO req) {
         try {
             Supplier supplier = new Supplier();
             supplier.setAlamat(req.getAlamat());

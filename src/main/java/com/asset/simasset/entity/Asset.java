@@ -1,7 +1,7 @@
 package com.asset.simasset.entity;
 
 import java.time.LocalDate;
-import java.time.Year;
+import java.util.Date;
 
 import com.asset.simasset.utils.ConditionEnum;
 
@@ -68,7 +68,7 @@ public class Asset {
     private String description;
     
     @Column(name = "tahun_pembelian")
-    private Year tahun_pembelian;
+    private Date tahun_pembelian;
 
     private LocalDate createdDate;
 

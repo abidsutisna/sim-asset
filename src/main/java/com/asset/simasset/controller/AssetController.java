@@ -38,6 +38,7 @@ public class AssetController {
     
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'MANAGER', 'STAFF')")
     public ResponseEntity<?> getAllAsset(
             @PageableDefault(page = 0, size = 10, sort = "asset", direction = Sort.Direction.ASC) Pageable pageable,
             @ModelAttribute ProcurementDTO procurementDTO
@@ -49,6 +50,7 @@ public class AssetController {
     }
 
     @GetMapping(ApiUrlConstant.PATH_ID)
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'MANAGER', 'STAFF')")
     public ResponseEntity<?> getById(@PathVariable String id) {
         Asset asset = assetService.getAssetById(id);
         return ResponseDTO.renderJson(asset, MessageConstant.ASSET_FOUND, HttpStatus.OK);
@@ -59,7 +61,7 @@ public class AssetController {
         consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<?> procurement(@RequestBody @Valid ProcurementDTO procurementDTO) {
+    public ResponseEntity<?> procurement(@ModelAttribute @Valid ProcurementDTO procurementDTO) {
         Asset asset = assetService.create(procurementDTO);
         return ResponseDTO.renderJson(asset, MessageConstant.ASSET_CREATED, HttpStatus.CREATED);
     }

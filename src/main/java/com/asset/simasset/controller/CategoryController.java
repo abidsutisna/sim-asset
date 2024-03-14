@@ -36,6 +36,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'MANAGER', 'STAFF')")
     public ResponseEntity<?> getAllCategory(
             @PageableDefault(page = 0, size = 10, sort = "category", direction = Sort.Direction.ASC) Pageable pageable,
             @ModelAttribute CategoryDTO categoryDTO
@@ -47,12 +48,14 @@ public class CategoryController {
     }
 
     @GetMapping(ApiUrlConstant.PATH_ID)
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'MANAGER', 'STAFF')")
     public ResponseEntity<?> getById(@PathVariable String id) {
         Category category = categoryService.getCategoryById(id);
         return ResponseDTO.renderJson(category, MessageConstant.CATEGORY_FOUND, HttpStatus.OK);
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'MANAGER', 'STAFF')")
     public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
         Category category = categoryService.create(categoryDTO);
         return ResponseDTO.renderJson(category, MessageConstant.CATEGORY_CREATED, HttpStatus.CREATED);

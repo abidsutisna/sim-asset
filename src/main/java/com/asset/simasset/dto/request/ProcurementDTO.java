@@ -1,6 +1,6 @@
 package com.asset.simasset.dto.request;
 
-import java.time.Year;
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,6 +41,5 @@ public class ProcurementDTO {
 
     private String description;
     
-    @JsonFormat(pattern = "yyyy")
-    private Year tahun_pembelian;
+    private String tanggalPembelian;
 }

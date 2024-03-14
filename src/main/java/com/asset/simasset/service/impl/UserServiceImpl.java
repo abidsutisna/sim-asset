@@ -1,7 +1,5 @@
 package com.asset.simasset.service.impl;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,8 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.asset.simasset.dto.request.UserDTO;
 import com.asset.simasset.dto.response.JwtClaim;
-import com.asset.simasset.entity.Asset;
-import com.asset.simasset.entity.Supplier;
 import com.asset.simasset.entity.User;
 import com.asset.simasset.repository.UserRepository;
 import com.asset.simasset.security.JwtUtils;
@@ -38,7 +34,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User loadByUserId(String userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
+        return userRepository.findUserById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
     }
 
 
@@ -76,7 +72,7 @@ public class UserServiceImpl implements UserService{
     public User update(String id, UserDTO userDTO) {
         try {
 
-            User user = userRepository.findById(id).get();
+            User user = userRepository.findUserById(id).get();
             user.setEmail((userDTO.getEmail() != null) ? userDTO.getEmail() : user.getEmail());
             user.setName((userDTO.getName() != null) ? userDTO.getName() : user.getName());      
             user.setNoPegawai(userDTO.getNoPegawai());     

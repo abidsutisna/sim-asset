@@ -2,6 +2,8 @@ package com.asset.simasset.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,8 +35,10 @@ public class Location {
 
     @ManyToOne
     @JoinColumn(name ="department_id")
+    @JsonBackReference
     private Department department;
 
     @OneToMany(mappedBy = "location")
+    @JsonBackReference
     private List<Asset> asset;
 }

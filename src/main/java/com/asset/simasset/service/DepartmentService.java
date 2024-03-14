@@ -3,9 +3,7 @@ package com.asset.simasset.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.asset.simasset.dto.request.CategoryDTO;
 import com.asset.simasset.dto.request.DepartmentDTO;
-import com.asset.simasset.entity.Category;
 import com.asset.simasset.entity.Department;
 
 public interface DepartmentService {

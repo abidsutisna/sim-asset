@@ -11,4 +11,5 @@ public interface ApiUrlConstant {
     public static final String BASE_CATEGORY = "api/category/";
     public static final String BASE_LOCATION = "api/location/";
     public static final String BASE_SUPPLIER = "api/supplier/";
+    public static final String BASE_DEPARTMENT = "api/department/";
 }

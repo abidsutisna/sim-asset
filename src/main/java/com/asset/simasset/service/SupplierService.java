@@ -8,7 +8,7 @@ import com.asset.simasset.entity.Supplier;
 
 public interface SupplierService {
     Page<Supplier> getAllSupplier(Pageable pageable, SupplierDTO req);
-    Supplier create(Supplier req);
+    Supplier create(SupplierDTO req);
     Supplier getSupplierById(String id);
     void delete(String id);
     Supplier update(String id, SupplierDTO supplierDTO);

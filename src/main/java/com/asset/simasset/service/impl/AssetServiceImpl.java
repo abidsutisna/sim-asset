@@ -1,7 +1,9 @@
 package com.asset.simasset.service.impl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
@@ -55,6 +57,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public Asset create(ProcurementDTO req) {
         try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Map<?,?> result = upload(req.getImage());
 
             Asset asset = new Asset();
@@ -65,6 +68,9 @@ public class AssetServiceImpl implements AssetService {
             asset.setValue(req.getValue());
             asset.setStock(req.getStock());
             asset.setStatus(req.getStatus());
+
+            Date date = dateFormat.parse(req.getTanggalPembelian());
+            asset.setTahun_pembelian(date);
 
             Category category = categoryService.getCategoryById(req.getCategoryCode());
             asset.setCategory(category);
@@ -110,6 +116,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public Asset update(String id, ProcurementDTO req) {
         try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Asset asset = assetRepository.findById(id).get();
 
             Map<?,?> result = ((req.getImage() != null) ? upload(req.getImage()) : Collections.emptyMap());
@@ -121,6 +128,9 @@ public class AssetServiceImpl implements AssetService {
             asset.setValue((req.getValue() != null) ? req.getValue() : asset.getValue());
             asset.setStock((req.getStock() != null) ? req.getStock() : asset.getStock());
             asset.setStatus((req.getStatus() != null) ? req.getStatus() : asset.getStatus());
+
+            Date date = dateFormat.parse(req.getTanggalPembelian());
+            asset.setTahun_pembelian((req.getTanggalPembelian() != null) ? date : asset.getTahun_pembelian());
 
             Category category = categoryService.getCategoryById(req.getCategoryCode());
             asset.setCategory((req.getCategoryCode() != null) ? category : asset.getCategory());
