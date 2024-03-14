@@ -1,5 +1,7 @@
 package com.asset.simasset.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +29,7 @@ public class Department {
     private String department;
 
     @OneToMany(mappedBy = "department")
-    private Location location;
+    private List<Location> location;
 
     private String description;
 }

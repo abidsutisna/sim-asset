@@ -2,7 +2,6 @@ package com.asset.simasset.entity;
 
 import java.time.LocalDate;
 import java.time.Year;
-import java.util.List;
 
 import com.asset.simasset.utils.ConditionEnum;
 
@@ -15,8 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -49,30 +46,24 @@ public class Asset {
     private String satuan;
 
     private Double stock;
+    
+    private Double value;
 
     @Enumerated(EnumType.STRING)
-    private ConditionEnum condition;
+    private ConditionEnum status;
 
-    private Double value;
 
     @ManyToOne
     @JoinColumn(name ="category_id", referencedColumnName = "categoryCode")
     private Category category;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "asset_supplier",
-            joinColumns = @JoinColumn(name = "asset_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    )
-    private List<Supplier> supplier;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name ="supplier_id", referencedColumnName = "id")
+    private Supplier supplier;
 
     @ManyToOne
     @JoinColumn(name ="location_id", referencedColumnName = "id")
     private Location location;
-
-    @Enumerated(EnumType.STRING)
-    private ConditionEnum conditionEnum;
 
     private String description;
     

@@ -8,6 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 @Configuration
 public class BeanConfiguration {
     @Bean
@@ -23,12 +26,12 @@ public class BeanConfiguration {
         return new RestTemplate();
     }
     
-    // @Bean
-    // public Cloudinary cloudinaryAccount(){
-    //     return new Cloudinary(ObjectUtils.asMap(
-    //         "cloud_name",cloudName,
-    //         "api_key",cloudApiKey,
-    //         "api_secret",cloudApiSecret
-    //     ));
-    // }
+    @Bean
+    public Cloudinary cloudinaryAccount(){
+        return new Cloudinary(ObjectUtils.asMap(
+            "cloud_name","de0yidcs5",
+            "api_key","415953523312214",
+            "api_secret","Y5JMq_FNpPplA8Fmtn-zn3sGfnw"
+        ));
+    }
 }

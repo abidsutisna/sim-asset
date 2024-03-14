@@ -88,6 +88,7 @@ public class AuthServiceImpl implements AuthService{
         User userCredential = User.builder()
             .email(registerDTO.getEmail())
             .password(hashPassword)
+            .noPegawai(registerDTO.getNoPegawai())
             .name(registerDTO.getName())
             .roles(List.of(roleEmployee))
             .build();
@@ -115,6 +116,7 @@ public class AuthServiceImpl implements AuthService{
         User userCredential = User.builder()
             .email(registerDTO.getEmail())
             .password(hashPassword)
+            .noPegawai(registerDTO.getNoPegawai())
             .name(registerDTO.getName())
             .roles(List.of(roleEmployee, roleAdmin))
             .build();

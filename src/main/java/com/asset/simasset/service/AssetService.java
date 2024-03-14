@@ -1,10 +1,15 @@
 package com.asset.simasset.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.asset.simasset.dto.request.ProcurementDTO;
+import com.asset.simasset.entity.Asset;
+
 public interface AssetService {
-//     Page<Asset> getAll(Pageable pageable, TransactionDTO req);
-//     Transaction create(TransactionDTO req, String token);
-//     Transaction getById(String id);
-//     void delete(String id);
-//     Page<Transaction> getAllByUser(Pageable pageable,String token);
-//     Transaction getTransactionByCurrentUser(String token, String id);
-} 
+    Page<Asset> getAllAsset(Pageable pageable, ProcurementDTO req);
+    Asset create(ProcurementDTO req);
+    Asset getAssetById(String id);
+    void delete(String id);
+    Asset update(String id, ProcurementDTO req);
+}
