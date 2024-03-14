@@ -48,7 +48,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public Supplier getSupplierById(String id) {
         try {
-            Supplier supplier = supplierRepository.findById(id).get();
+            Supplier supplier = supplierRepository.findSupplierById(id).get();
             return supplier;
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -58,7 +58,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void delete(String id) {
         try {
-            supplierRepository.deleteById(id);
+            supplierRepository.deleteSupplierById(id);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -67,7 +67,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public Supplier update(String id, SupplierDTO supplierDTO) {
         try {
-            Supplier supplier = supplierRepository.findById(id).get();
+            Supplier supplier = supplierRepository.findSupplierById(id).get();
             supplier.setAlamat((supplierDTO.getAlamat() != null) ? supplierDTO.getAlamat() : supplier.getAlamat());
             supplier.setNoHp((supplierDTO.getNoHp() != null) ? supplierDTO.getNoHp() : supplier.getNoHp());
             supplier.setSupplier((supplierDTO.getSupplier() != null) ? supplierDTO.getSupplier() : supplier.getSupplier());

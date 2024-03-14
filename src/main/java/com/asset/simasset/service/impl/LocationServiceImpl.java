@@ -53,7 +53,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Location getLocationById(String id) {
         try {
-            Location location = locationRepository.findById(id).get();
+            Location location = locationRepository.findLocationById(id).get();
             return location;
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -63,7 +63,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void delete(String id) {
         try {
-            locationRepository.deleteById(id);
+            locationRepository.deleteLocationById(id);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -72,7 +72,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Location update(String id, LocationDTO locationDTO) {
         try {
-            Location location = locationRepository.findById(id).get();
+            Location location = locationRepository.findLocationById(id).get();
 
             location.setLocation((locationDTO.getLocation() != null) ? locationDTO.getLocation() : location.getLocation());
 

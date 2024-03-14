@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void delete(String id) {
         try {
-            userRepository.deleteById(id);
+            userRepository.deleteUserById(id);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
         }

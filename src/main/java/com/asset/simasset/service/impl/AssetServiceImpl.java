@@ -1,11 +1,17 @@
 package com.asset.simasset.service.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -29,6 +35,11 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +54,8 @@ public class AssetServiceImpl implements AssetService {
     private final SupplierService supplierService;
 
     private final LocationService locationService;
+
+    private final DataSource dataSource;
     
     @Override
     public Page<Asset> getAllAsset(Pageable pageable, ProcurementDTO req) {
@@ -97,7 +110,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public Asset getAssetById(String id) {
         try {
-            Asset asset = assetRepository.findById(id).get();
+            Asset asset = assetRepository.findAssetById(id).get();
             return asset;
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -107,7 +120,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public void delete(String id) {
         try {
-            assetRepository.deleteById(id);
+            assetRepository.deleteAssetById(id);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -117,7 +130,7 @@ public class AssetServiceImpl implements AssetService {
     public Asset update(String id, ProcurementDTO req) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Asset asset = assetRepository.findById(id).get();
+            Asset asset = assetRepository.findAssetById(id).get();
 
             Map<?,?> result = ((req.getImage() != null) ? upload(req.getImage()) : Collections.emptyMap());
 
@@ -146,6 +159,24 @@ public class AssetServiceImpl implements AssetService {
             return assetRepository.save(asset);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @Override
+    public String generateReport() throws Exception {
+        
+        InputStream fileReport = new ClassPathResource("report/Invoice_Table_Based.jasper").getInputStream();
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(fileReport);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, getJdbcConnection());
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\M_S_I\\Downloads\\SIM_Asset.pdf");
+        return "report generated in path : C:/Users/M_S_I/Downloads/";
+    }
+
+    private Connection getJdbcConnection() {
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            return null;
         }
     }
     

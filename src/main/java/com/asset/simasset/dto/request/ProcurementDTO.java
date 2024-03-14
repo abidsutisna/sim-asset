@@ -1,11 +1,8 @@
 package com.asset.simasset.dto.request;
 
-import java.util.Date;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import com.asset.simasset.utils.ConditionEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

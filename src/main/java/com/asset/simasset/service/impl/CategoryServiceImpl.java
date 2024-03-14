@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(String id) {
         try {
-            Category category = categoryRepository.findById(id).get();
+            Category category = categoryRepository.findCategoryById(id).get();
             return category;
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(String id) {
         try {
-            categoryRepository.deleteById(id);
+            categoryRepository.deleteCategoryById(id);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(String id, CategoryDTO categoryDTO) {
         try {
-            Category category = categoryRepository.findById(id).get();
+            Category category = categoryRepository.findCategoryById(id).get();
 
             category.setCategory((categoryDTO.getCategory() != null) ? categoryDTO.getCategory() : category.getCategory());
             return categoryRepository.save(category);

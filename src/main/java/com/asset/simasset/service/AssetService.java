@@ -12,4 +12,5 @@ public interface AssetService {
     Asset getAssetById(String id);
     void delete(String id);
     Asset update(String id, ProcurementDTO req);
+    String generateReport() throws Exception;
 }

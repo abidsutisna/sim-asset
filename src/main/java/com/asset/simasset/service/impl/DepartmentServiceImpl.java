@@ -47,7 +47,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department getDepartmentById(String id) {
         try {
-            Department department = departmentRepository.findById(id).get();
+            Department department = departmentRepository.findDepartmentById(id).get();
             return department;
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -57,7 +57,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void delete(String id) {
         try {
-            departmentRepository.deleteById(id);
+            departmentRepository.deleteDepartmentById(id);
         } catch (Exception e) {
             throw new HttpServerErrorException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -66,7 +66,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department update(String id, DepartmentDTO departmentDTO) {
         try {
-            Department department = new Department();
+            Department department = departmentRepository.findDepartmentById(id).get();
             department.setDepartment((departmentDTO.getDepartment() != null) ? departmentDTO.getDepartment() : department.getDepartment());
             department.setDescription((departmentDTO.getDepartment() != null) ? departmentDTO.getDescription() : department.getDescription());
 

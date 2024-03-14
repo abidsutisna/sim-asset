@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 
 import com.asset.simasset.dto.PageResponseWrapper;
 import com.asset.simasset.dto.request.ProcurementDTO;
+import com.asset.simasset.dto.response.Res;
 import com.asset.simasset.dto.response.ResponseDTO;
 import com.asset.simasset.entity.Asset;
 import com.asset.simasset.service.AssetService;
@@ -82,5 +83,10 @@ public class AssetController {
     public ResponseEntity<?> delete(@PathVariable String id) {
         assetService.delete(id);
         return ResponseDTO.renderJson(null, MessageConstant.ASSET_DELETED, HttpStatus.OK);
+    }
+
+    @GetMapping(ApiUrlConstant.EXPORT)
+    public ResponseEntity<?> exportPortfolio () throws Exception{
+        return ResponseDTO.renderJson(assetService.generateReport(), MessageConstant.EXPORT_SUCCES, HttpStatus.OK);
     }
 }
