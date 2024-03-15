@@ -20,7 +20,6 @@ import org.springframework.data.domain.Sort;
 
 import com.asset.simasset.dto.PageResponseWrapper;
 import com.asset.simasset.dto.request.ProcurementDTO;
-import com.asset.simasset.dto.response.Res;
 import com.asset.simasset.dto.response.ResponseDTO;
 import com.asset.simasset.entity.Asset;
 import com.asset.simasset.service.AssetService;
